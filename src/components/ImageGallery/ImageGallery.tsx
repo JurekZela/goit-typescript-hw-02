@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { Gallery } from './ImageGallery-styled';
-import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
+import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 
 const ImageGallery = ({ images }) => {
     return (
@@ -8,7 +8,7 @@ const ImageGallery = ({ images }) => {
       {
         useMemo(() => {
          return images.map(({id, urls:{ small, regular }, alt_description }) => (
-            < ImageGalleryItem
+            <ImageGalleryItem
              key={id} 
              smallImg={small}
              largeImageURL={regular}

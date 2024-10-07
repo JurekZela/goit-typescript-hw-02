@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import  { toast } from 'react-hot-toast';
 import { RotatingTriangles } from 'react-loader-spinner'
-import fetchImg from '../Api.js';
-import  Searchbar  from './Searchbar/Searchbar.js';
-import { Wrapper } from '../GlobalStyled-styled.js';
-import ImageGallery from './ImageGallery/ImageGallery.js';
-import Button from './Button/Button.js';
+import fetchImg from '../Api/Api.js';
+import  Searchbar  from '../Searchbar/Searchbar.js';
+import { Wrapper } from '../../GlobalStyled-styled.js';
+import ImageGallery from '../ImageGallery/ImageGallery.js';
+import Button from '../Button/Button.js';
 
 
 const Loader = <RotatingTriangles
