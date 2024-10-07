@@ -22,7 +22,7 @@ const customStyles = {
 
   Modal.setAppElement('#root');
 
-export const LargeImage = ({ isModalOpen, closeModal, largeImage, tags }) => {
+ const LargeImage = ({ isModalOpen, closeModal, largeImage, tags }) => {
     return (
 <Modal
   isOpen={isModalOpen}
@@ -34,3 +34,5 @@ export const LargeImage = ({ isModalOpen, closeModal, largeImage, tags }) => {
 </Modal>
   );
 };
+
+export default LargeImage;

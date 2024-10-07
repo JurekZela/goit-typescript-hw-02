@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { Gallery } from './ImageGallery-styled';
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 
-export const ImageGallery = ({ images }) => {
+const ImageGallery = ({ images }) => {
     return (
      <Gallery>
       {
@@ -19,3 +19,5 @@ export const ImageGallery = ({ images }) => {
       </Gallery>
     )
 };
+
+export default ImageGallery;

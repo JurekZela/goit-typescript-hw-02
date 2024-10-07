@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { GalleryItem, GalleryItemImg } from './ImageGalleryItem-styled';
-import { LargeImage } from './Modal/Modal';
+import  LargeImage  from './Modal/Modal';
 
-export const ImageGalleryItem = ({ smallImg, largeImageURL, tags }) => {
+const ImageGalleryItem = ({ smallImg, largeImageURL, tags }) => {
   const [modalOpen, setModal] = useState(false);
 
  const onModalOpen = () => setModal(true);
@@ -21,3 +21,5 @@ export const ImageGalleryItem = ({ smallImg, largeImageURL, tags }) => {
         </>
         )
 };
+
+export default ImageGalleryItem;
