@@ -1,4 +1,5 @@
 import Modal from 'react-modal';
+import { IModal } from './Modal-types';
 
 const customStyles = {
   content: {
@@ -22,7 +23,7 @@ const customStyles = {
 
   Modal.setAppElement('#root');
 
- const LargeImage = ({ isModalOpen, closeModal, largeImage, tags }) => {
+ const LargeImage = ({ isModalOpen, closeModal, largeImage, tags }: IModal) => {
     return (
 <Modal
   isOpen={isModalOpen}

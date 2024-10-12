@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, FormEvent } from 'react';
 import  { toast } from 'react-hot-toast';
 import { RotatingTriangles } from 'react-loader-spinner'
 import fetchImg from '../Api/Api.js';
@@ -6,6 +6,7 @@ import  Searchbar  from '../Searchbar/Searchbar.js';
 import { Wrapper } from '../../GlobalStyled-styled.js';
 import ImageGallery from '../ImageGallery/ImageGallery.js';
 import Button from '../Button/Button.js';
+import { IImages } from '../ImageGallery/ImagesGallery-types.js';
 
 
 const Loader = <RotatingTriangles
@@ -18,15 +19,16 @@ wrapperClass="rotating-triangels-wrapper"
 />
 
 export default function App () {
-  const [images, setImages] = useState([]);
-  const [query, setQuery] = useState('');
-  const [page, setPages] = useState(1);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [loadingMoreImages, setLoadingMoreImages] = useState(false);
-  const [totalHits, setTotalHits] = useState(0);
+  const [images, setImages] = useState<IImages[]>([]);
+  const [query, setQuery] = useState<string>('');
+  const [page, setPages] = useState<number>(1);
+  const [error, setError] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [loadingMoreImages, setLoadingMoreImages] = useState<boolean>(false);
+  const [totalHits, setTotalHits] = useState<number>(0);
 
-  const controllerRef = useRef();
+
+  const controllerRef = useRef<AbortController>(new AbortController);
 
   useEffect(() => {
 
@@ -43,16 +45,21 @@ export default function App () {
         if (!query) {
           return;
         }
+        
 
         const initialQuizzes = await fetchImg(query, page, controllerRef);
-        setTotalHits(initialQuizzes.results.length);
+        
+        setTotalHits(initialQuizzes.length);
 
-        initialQuizzes.results.length ? 
-        setImages(prevImages => page >= 1 ? [...prevImages, ...initialQuizzes.results ] : [...initialQuizzes.results])
-        : toast.error(`Sorry, but we didn't found any image!`);
+        if (initialQuizzes.length) {
+          setImages(prevImages => page >= 1 ? [...prevImages, ...initialQuizzes ] : [...initialQuizzes])
+        }else {
+          toast.error(`Sorry, but we didn't found any image!`);
+        }
   
-      } catch(e){
-        if (e.code !== "ERR_CANCELED") {
+      } catch(error: any){
+        
+        if (error.code !== "ERR_CANCELED") {
           setError(true); 
         }
       }
@@ -65,24 +72,31 @@ export default function App () {
     loadingResults()
 
     return () => {
-      controllerRef.current.abort();
+      
+        controllerRef.current.abort();
     }
 
   }, [query, page]);
 
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
-    const value = e.target.elements[1].value.trim()
+    const target = e.target as HTMLFormElement;
 
-    !value ? toast.error('Not a Value!') : searchImages(value);
+    const value = (target.elements[1] as HTMLInputElement).value.trim();
 
-    e.target.reset();
+    if (!value) {
+     toast.error('Not a Value!');
+    } else {
+      searchImages(value)
+    }
+
+    target.reset();
   };
 
-  const searchImages = newQuery => {
-    const currentQuery = `${Date.now()}/${newQuery}`;
+  const searchImages = (newQuery: string): void => {
+    const currentQuery: string = `${Date.now()}/${newQuery}`;
 
     setQuery(currentQuery);
     setPages(1);
@@ -90,7 +104,8 @@ export default function App () {
   };
 
 
- const onClickLoadMore = () => setPages(prevPages => prevPages + 1);
+
+ const onClickLoadMore = () => setPages((prevPages: number): number => {return prevPages + 1});
 
   return (
     <Wrapper>

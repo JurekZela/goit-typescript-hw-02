@@ -1,8 +1,10 @@
-import { useMemo } from 'react';
+import { useMemo, FC } from 'react';
 import { Gallery } from './ImageGallery-styled';
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
+import { IIMageProps } from './ImagesGallery-types';
 
-const ImageGallery = ({ images }) => {
+const ImageGallery: FC<IIMageProps> = ({ images }) => {
+  
     return (
      <Gallery>
       {

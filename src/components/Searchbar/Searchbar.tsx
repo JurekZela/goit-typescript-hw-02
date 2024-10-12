@@ -1,12 +1,15 @@
 import { Formik } from 'formik';
 import { FiSearch } from "react-icons/fi";
+import { ISearchBar } from './Searchbar-types';
 import { Header, FormStyles as Form, Button, Input } from './Searchbar-styled';
 
-const Searchbar = ({ onSubmit }) => {
+
+const Searchbar = ({ onSubmit }: ISearchBar) => {
+
         return (
-      <Formik  >
+      <Formik>   
           <Header>
-            <Form  onSubmit={onSubmit}>
+            <Form onSubmit={onSubmit}>
                 <Button type="submit"  >
                     <FiSearch size="25"/>
                 </Button>

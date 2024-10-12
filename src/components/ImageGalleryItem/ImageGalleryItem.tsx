@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, FC } from 'react';
 import { GalleryItem, GalleryItemImg } from './ImageGalleryItem-styled';
 import  LargeImage  from './Modal/Modal';
+import { IImageGalleryItem } from './ImageGalleryItem-types';
 
-const ImageGalleryItem = ({ smallImg, largeImageURL, tags }) => {
-  const [modalOpen, setModal] = useState(false);
+
+const ImageGalleryItem: FC<IImageGalleryItem> = ({ smallImg, largeImageURL, tags }) => {
+  const [modalOpen, setModal] = useState<boolean>(false);
 
  const onModalOpen = () => setModal(true);
  const onModalClose = () => setModal(false);
