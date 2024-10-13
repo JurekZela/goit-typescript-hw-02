@@ -57,11 +57,8 @@ export default function App () {
           toast.error(`Sorry, but we didn't found any image!`);
         }
   
-      } catch(error: any){
-        
-        if (error.code !== "ERR_CANCELED") {
-          setError(true); 
-        }
+      } catch{
+           setError(true);
       }
       finally {
         setLoading(false);
@@ -84,12 +81,12 @@ export default function App () {
 
     const target = e.target as HTMLFormElement;
 
-    const value = (target.elements[1] as HTMLInputElement).value.trim();
+    const value = (target.elements[1] as HTMLInputElement).value.trim();    
 
     if (!value) {
      toast.error('Not a Value!');
     } else {
-      searchImages(value)
+      searchImages(value);      
     }
 
     target.reset();
@@ -109,7 +106,7 @@ export default function App () {
 
   return (
     <Wrapper>
-      <Searchbar onSubmit={handleSubmit} />
+      <Searchbar onSubmit={handleSubmit}/>
       {error && <b>OOPS! Something went wrong! Please try reloading this page :-) </b>}
       {loading && Loader}
      {
